@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramo Buchón de Flores Amarillas</title>
+  <style>
+    :root{
+      --bg1: #fff9c4;
+      --bg2: #fff59d;
+      --accent: #d32f2f;
+      --gold: #fbc02d;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#4e342e;
+      overflow:hidden;
+      padding:24px;
+    }
+    h1{margin:8px 0 6px;color:var(--accent);text-shadow:0 4px 18px rgba(0,0,0,0.12);font-size:2.25rem}
+    p.lead{max-width:850px;text-align:center;font-weight:600;margin:0 0 18px;padding:0 12px}
+
+    /* Bouquet center */
+    .scene{position:relative;width:760px;max-width:95%;height:460px;display:block;margin:18px auto}
+    .bouquet{position:absolute;left:50%;top:40%;transform:translate(-50%,-40%);width:520px;height:420px;pointer-events:none}
+
+    /* many flowers positioned absolutely */
+    .flower{
+      position:absolute;width:86px;height:86px;--x:0;--y:0;
+      transform-origin:50% 70%;
+      animation:float 4s ease-in-out infinite;
+      border-radius:50%;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+    }
+    .flower .petal{position:absolute;width:44px;height:62px;border-radius:50% 50% 40% 40%;background:radial-gradient(circle at 35% 30%,#fff176 20%,#ffeb3b 45%,#fbc02d 100%);left:21px;top:6px;transform-origin:bottom center}
+    .flower .center{position:absolute;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,#fdd835,#f9a825);left:26px;top:26px;box-shadow:inset 0 2px 6px rgba(0,0,0,0.15)}
+
+    /* different rotations for 6 petals using nth-child */
+    .flower .petal.p1{transform:rotate(0deg) translateY(-22px)}
+    .flower .petal.p2{transform:rotate(60deg) translateY(-22px)}
+    .flower .petal.p3{transform:rotate(120deg) translateY(-22px)}
+    .flower .petal.p4{transform:rotate(180deg) translateY(-22px)}
+    .flower .petal.p5{transform:rotate(240deg) translateY(-22px)}
+    .flower .petal.p6{transform:rotate(300deg) translateY(-22px)}
+
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+    /* position classes for bouquet - handcrafted spread */
+    .f1{left:220px;top:40px;transform-origin:50% 70%;animation-duration:4s}
+    .f2{left:110px;top:80px;transform-origin:50% 70%;animation-duration:4.6s}
+    .f3{left:330px;top:90px;transform-origin:50% 70%;animation-duration:3.8s}
+    .f4{left:40px;top:150px;transform-origin:50% 70%;animation-duration:4.4s}
+    .f5{left:430px;top:160px;transform-origin:50% 70%;animation-duration:3.6s}
+    .f6{left:180px;top:170px;transform-origin:50% 70%;animation-duration:4.2s}
+    .f7{left:300px;top:220px;transform-origin:50% 70%;animation-duration:3.9s}
+    .f8{left:80px;top:220px;transform-origin:50% 70%;animation-duration:4.7s}
+    .f9{left:380px;top:40px;transform-origin:50% 70%;animation-duration:4.3s}
+    .f10{left:480px;top:120px;transform-origin:50% 70%;animation-duration:4.1s}
+
+    /* stems bundle */
+    .stems{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:160px;height:220px;border-radius:18px;background:linear-gradient(180deg,#388e3c,#1b5e20);box-shadow:0 10px 30px rgba(0,0,0,0.15);overflow:visible;pointer-events:auto}
+
+    /* ribbon */
+    .ribbon{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:210px;height:70px;border-radius:36px 36px 12px 12px;background:linear-gradient(180deg,#d32f2f,#b71c1c);box-shadow:0 6px 18px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .ribbon .tails{position:absolute;bottom:-46px;left:50%;transform:translateX(-50%);width:120px;height:56px}
+    .ribbon .tails::before,.ribbon .tails::after{content:'';position:absolute;width:34px;height:56px;background:linear-gradient(180deg,#b71c1c,#880e0e);border-radius:8px;top:0}
+    .ribbon .tails::before{left:0;transform:rotate(-18deg)}
+    .ribbon .tails::after{right:0;transform:rotate(18deg)}
+
+    /* music icon floating */
+    .music-btn{position:fixed;right:18px;top:18px;width:56px;height:56px;border-radius:50%;background:linear-gradient(180deg,var(--gold),#f9a825);border:none;box-shadow:0 6px 18px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;z-index:80}
+    .music-btn.paused{background:linear-gradient(180deg,#eee,#bbb);color:#333}
+
+    /* surprise button animated */
+    .surprise-btn{margin-top:18px;padding:12px 26px;font-size:18px;border-radius:999px;border:none;background:linear-gradient(90deg,var(--gold),#f9a825);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,0.18);animation:heartbeat 2s infinite;z-index:60;position:relative}
+    @keyframes heartbeat{0%{transform:scale(1)}30%{transform:scale(1.06)}60%{transform:scale(0.98)}100%{transform:scale(1)}}
+
+    /* falling petals (infinite) */
+    .petal-fall{position:fixed;left:0;top:0;pointer-events:none;z-index:10;overflow:hidden;width:100%;height:100%}
+    .petal{position:absolute;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff176,#ffeb3b);opacity:0.95;transform:translateY(-20vh) rotate(0deg);animation:drop linear infinite}
+    @keyframes drop{0%{transform:translateY(-10vh) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(6,6,6,0.5);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease}
+    .modal-backdrop.show{opacity:1;pointer-events:auto}
+    .modal{width:90%;max-width:620px;background:linear-gradient(180deg,#fffdf6,#fff9ec);border-radius:18px;padding:28px 24px;box-shadow:0 18px 60px rgba(0,0,0,0.35);position:relative;overflow:hidden;border:4px solid rgba(243,184,19,0.12)}
+    .modal h2{margin:0 0 10px;color:var(--accent);font-size:1.6rem;text-align:center}
+    .modal .text{font-size:1.05rem;color:#4e342e;text-align:center;line-height:1.4;font-style:italic;padding:6px 10px}
+    .modal .close{position:absolute;right:14px;top:12px;background:transparent;border:2px solid rgba(0,0,0,0.08);padding:6px 10px;border-radius:10px;cursor:pointer;color:var(--accent);font-weight:700}
+    /* hearts inside modal */
+    .heart{position:absolute;width:18px;height:18px;background:radial-gradient(circle,#ff6f61,#ff1744);transform:rotate(-45deg);border-radius:6px;opacity:0.9;animation:floatHeart linear infinite}
+    @keyframes floatHeart{0%{transform:translateY(30px) scale(.6) rotate(-45deg);opacity:0}50%{opacity:1}100%{transform:translateY(-140px) scale(1.3) rotate(-45deg);opacity:0}}
+
+    /* responsive tweaks */
+    @media (max-width:640px){
+      .bouquet{transform:translate(-50%,-35%) scale(.85);}
+      .stems{height:160px}
+      .scene{height:380px}
+      h1{font-size:1.8rem}
+      .surprise-btn{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <h1>💛 Ramo Buchón Amarillo 💛</h1>
+  <p class="lead">"Mi querida cachetona, en este día donde las flores amarillas danzan al ritmo de nuestros corazones, quiero regalarte algo más que pétalos: quiero entregarte cada latido, cada suspiro, cada momento que hemos reído juntos. [SALIMOSSS GAN GAN GAN]"</p>
+
+  <div class="scene" aria-hidden="false">
+    <div class="bouquet" id="bouquet">
+      <!-- flowers added by JS for variety -->
+    </div>
+
+    <div class="stems" aria-hidden="true">
+      <div class="ribbon">Con cariño ♥<div class="tails"></div></div>
+    </div>
+  </div>
+
+  <button class="surprise-btn" id="surpriseBtn">💝 Ver Sorpresa</button>
+  <button class="music-btn" id="musicToggle" title="Pausar/Reproducir música">♪</button>
+
+  <!-- falling petals container -->
+  <div class="petal-fall" id="petalFall" aria-hidden="true"></div>
+
+  <!-- modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <button class="close" id="closeModal">Cerrar ✕</button>
+      <h2>Para mi Cachetona</h2>
+      <div class="text" id="modalText">
+        "Mi querida cachetona, en este día donde las flores amarillas danzan al ritmo de nuestros corazones, quiero regalarte algo más que pétalos: quiero entregarte cada latido, cada suspiro, cada momento que hemos reído juntos. [SALIMOSSS GAN GAN GAN]"
+      </div>
+      <!-- hearts container -->
+      <div id="hearts"></div>
+    </div>
+  </div>
+
+  <!-- audio (expects music/romantica.mp3 in same folder structure) -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="music/romantica.mp3" type="audio/mpeg">
+    <!-- fallback: silent note -->
+  </audio>
+
+  <script>
+    // create many flowers of slightly different sizes/positions
+    const bouquet = document.getElementById('bouquet');
+    const flowerCount = 11;
+    const positions = [
+      {x:220,y:30,s:1,cls:'f1'}, {x:110,y:70,s:0.95,cls:'f2'}, {x:330,y:80,s:1.05,cls:'f3'},
+      {x:40,y:150,s:0.92,cls:'f4'},{x:430,y:160,s:1.08,cls:'f5'},{x:180,y:170,s:0.98,cls:'f6'},
+      {x:300,y:220,s:0.9,cls:'f7'},{x:80,y:220,s:0.86,cls:'f8'},{x:380,y:40,s:0.88,cls:'f9'},
+      {x:480,y:120,s:0.9,cls:'f10'},{x:260,y:120,s:1.12,cls:'f11'}
+    ];
+
+    positions.forEach((pos,i)=>{
+      const el = document.createElement('div');
+      el.className = 'flower';
+      el.style.left = (pos.x)+'px';
+      el.style.top = (pos.y)+'px';
+      el.style.width = (86*pos.s)+'px';
+      el.style.height = (86*pos.s)+'px';
+      el.style.animationDuration = (3.6 + Math.random()*1.4)+'s';
+      // add petals and center
+      for(let p=1;p<=6;p++){
+        const pet = document.createElement('div');
+        pet.className = 'petal p'+p;
+        pet.style.width = (44*pos.s)+'px';
+        pet.style.height = (62*pos.s)+'px';
+        pet.style.left = (21*pos.s)+'px';
+        pet.style.top = (6*pos.s)+'px';
+        el.appendChild(pet);
+      }
+      const center = document.createElement('div');
+      center.className = 'center';
+      center.style.width = (34*pos.s)+'px';
+      center.style.height = (34*pos.s)+'px';
+      center.style.left = (26*pos.s)+'px';
+      center.style.top = (26*pos.s)+'px';
+      el.appendChild(center);
+      bouquet.appendChild(el);
+    });
+
+    // create infinite falling petals
+    const petalFall = document.getElementById('petalFall');
+    function spawnPetal(){
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const startX = Math.random()*window.innerWidth;
+      p.style.left = startX + 'px';
+      const dur = 6 + Math.random()*8;
+      p.style.animationDuration = dur+'s';
+      p.style.opacity = (0.5 + Math.random()*0.5).toString();
+      p.style.transform = 'translateY(-10vh) rotate('+ (Math.random()*360) +'deg)';
+      petalFall.appendChild(p);
+      // cleanup after animation ends
+      setTimeout(()=>{ p.remove(); }, (dur+0.5)*1000);
+    }
+    // spawn consistently
+    const petalInterval = setInterval(spawnPetal, 180);
+
+    // audio control and floating icon
+    const audio = document.getElementById('bgAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    let playing = false;
+    function tryPlay(){ audio.play().then(()=>{ playing=true; musicToggle.classList.remove('paused')}).catch(()=>{ playing=false; musicToggle.classList.add('paused')} ) }
+    tryPlay();
+    musicToggle.addEventListener('click', ()=>{
+      if(playing){ audio.pause(); playing=false; musicToggle.classList.add('paused')} else { audio.play().catch(()=>{}); playing=true; musicToggle.classList.remove('paused') }
+    });
+
+    // surprise modal and hearts
+    const modal = document.getElementById('modalBackdrop');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const closeModal = document.getElementById('closeModal');
+    const hearts = document.getElementById('hearts');
+
+    function openModal(){
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+      // spawn some hearts inside modal
+      for(let i=0;i<12;i++) spawnHeart();
+    }
+    function closeModalFn(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+      hearts.innerHTML='';
+    }
+    surpriseBtn.addEventListener('click', ()=>{
+      openModal();
+    });
+    closeModal.addEventListener('click', closeModalFn);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModalFn(); });
+
+    // spawn floating hearts inside modal
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className='heart';
+      const sz = 12 + Math.random()*18;
+      h.style.width = sz+'px'; h.style.height = sz+'px';
+      h.style.left = (20 + Math.random()*560) + 'px';
+      h.style.bottom = (20 + Math.random()*20)+'px';
+      h.style.animationDuration = (2.6 + Math.random()*2)+'s';
+      hearts.appendChild(h);
+      setTimeout(()=>{ h.remove(); }, 5000);
+      // spawn more over time while modal visible
+      if(modal.classList.contains('show')) setTimeout(spawnHeart, 300+Math.random()*600);
+    }
+
+    // accessibility: close modal with Esc
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModalFn(); });
+
+    // pause petal spawning when tab not visible to save resources
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){
+        clearInterval(petalInterval);
+      }else{
+        // resume
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>
