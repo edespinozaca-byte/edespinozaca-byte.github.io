@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas 🌼</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #fff9c4, #fff59d);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #f9a825;
+      text-shadow: 2px 2px 5px #ffeb3b;
+      margin-top: 20px;
+    }
+
+    .mensaje {
+      font-size: 1.3em;
+      margin: 10px;
+      color: #4e342e;
+    }
+
+    /* Contenedor de la flor */
+    .flor {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 50px auto;
+      animation: balanceo 3s infinite ease-in-out;
+    }
+
+    /* Pétalos */
+    .petalo {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #ffeb3b 40%, #fbc02d 100%);
+      border-radius: 50%;
+      top: 30px;
+      left: 30px;
+      transform-origin: center;
+    }
+
+    .petalo:nth-child(1) { transform: rotate(0deg) translate(0, -50px); }
+    .petalo:nth-child(2) { transform: rotate(60deg) translate(0, -50px); }
+    .petalo:nth-child(3) { transform: rotate(120deg) translate(0, -50px); }
+    .petalo:nth-child(4) { transform: rotate(180deg) translate(0, -50px); }
+    .petalo:nth-child(5) { transform: rotate(240deg) translate(0, -50px); }
+    .petalo:nth-child(6) { transform: rotate(300deg) translate(0, -50px); }
+
+    /* Centro de la flor */
+    .centro {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, #ffeb3b, #f57f17);
+      border-radius: 50%;
+      top: 35px;
+      left: 35px;
+      box-shadow: 0 0 15px #fdd835;
+    }
+
+    /* Tallo */
+    .tallo {
+      width: 12px;
+      height: 180px;
+      background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+      margin: auto;
+      border-radius: 6px;
+    }
+
+    /* Animación balanceo */
+    @keyframes balanceo {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌼 Flores Amarillas 🌼</h1>
+  <p class="mensaje">"Mi Cachetona, estas flores amarillas son para ti, con todo mi cariño."</p>
+
+  <!-- Flor -->
+  <div class="flor">
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="centro"></div>
+  </div>
+
+  <div class="tallo"></div>
+</body>
+</html>
